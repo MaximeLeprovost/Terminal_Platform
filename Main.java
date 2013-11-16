@@ -1,5 +1,6 @@
 
-import java.io.*; 
+import java.io.*;
+import java.util.*; 
 
 public class Main {
 
@@ -7,44 +8,45 @@ public class Main {
 	
 
 		Joueur j = new Joueur();
-		Plateau p = new Plateau();
+		Plateau p = new Plateau();		
+		Scanner menu = new Scanner(System.in);
+
+
+		System.out.println("Appuyer sur Entree pour commencer (CRTL+C pour quitter)");
+		try {
+			String menupartie = menu.nextLine();
+		} catch (InputMismatchException e) {
+			System.out.println("Erreur de caractere !");
+			System.exit(0);
+		}
 		
-		int test = 29;
-		
-			
-				
 		System.out.print(p);
+
+
 			
 	
-		while(test<30){
+		while(p.getAppartion()<30){
 
+			p.apparition++;
 
-		//j.iaDeplacement();
 			p.tab[56][j.posy]=0;
-			j.posy = 37;
-			j.cleverRandom();
+			
+			Thread.sleep(20);
 
-			test++;
+			p.deplacementPlatform();
 
-			Thread.sleep(30);
+			j.iaDeplacement();
 
-			for (int x = 63; x > 0; x--) {
-				for (int y = 0; y < 75; y++){
-
-						p.tab[x][y] = p.tab[x-1][y];
-						p.tab[x-1][y]=0;
-
-					}
-					
-			}
+			j.showDeplacement();
 
 			p.tab[56][j.posy]=2;
-			
 
-
-			if(test == 30){test = 0;
+			if(p.getAppartion() == 30){
+				p.setAppartion(0);
+				p.cleverRandom(j.posy);
 				p.testLigne();
 			}
+
 
 			System.out.print(p);
 

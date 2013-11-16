@@ -4,8 +4,9 @@ public class Plateau {
 
 
 	protected static int[][] tab;
-	int posmax;
-	int posmin;
+	public int posmax;
+	public int posmin;
+	int apparition = 29;
 	
 
 	Plateau() {
@@ -49,21 +50,55 @@ public class Plateau {
 
 	}
 
+	public void cleverRandom(int posy) {
+		
+		if (posy>55) {
+			posmax=55;
+		}else{
+			posmax = posy;
+		}
+
+		if (posy<19) {
+			posmin=0;
+		}else{
+			posmin = posy - 19;
+		}
+	
+	}
+
 	public void testLigne() {
 
-		//int random = (int)(Math.random() * (higher-lower)) + lower;
-		int abs = (int)(Math.random() * ((posmax+30)-(posmax)));
+		int abs = (int)(Math.random() * (posmax-1-posmin)) + posmin;
+		
 		for (int i = abs; i < (abs+20);i++) {
 				tab[0][i]=1;
 			}
 	}
 
-	public void testLigneG() {
+	public void deplacementPlatform() {
 
+		for (int x = 63; x > 0; x--) {
+				for (int y = 0; y < 75; y++){
 
-		for (int i = 0; i < (75);i++ ) {
-				tab[0][i]=1;
+						tab[x][y] = tab[x-1][y];
+						tab[x-1][y]=0;
+
+					}
 			}
+	}
+
+	public void setAppartion(int value) {
+
+		apparition = value;
+
+	}
+
+
+
+	public int getAppartion() {
+
+		return apparition;
+
 	}
 
 
